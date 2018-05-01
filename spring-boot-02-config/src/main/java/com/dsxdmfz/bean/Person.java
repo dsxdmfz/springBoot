@@ -2,6 +2,7 @@ package com.dsxdmfz.bean;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
@@ -16,7 +17,9 @@ import java.util.Map;
  *      prefix = "person" 配置文件中哪个下面的属性进行一一映射
  *
  * 只有这个组建是容器中的组件，才能容器提供的@ConfigurationProperties 功能
+ * @ConfigurationProperties(prefix = "person")默认从全局配置文件中获取值
  */
+@PropertySource(value = {"classpath:person.properties"})
 @Component
 @ConfigurationProperties(prefix = "person")
 //@Validated
