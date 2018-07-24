@@ -1,9 +1,11 @@
 package com.dsxdmfz.config;
 
+import com.dsxdmfz.component.LoginHandelerInterceptor;
 import com.dsxdmfz.component.MyLocalResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -27,6 +29,15 @@ public class MyConfig implements WebMvcConfigurer {
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("login");
                 registry.addViewController("/index.html").setViewName("login");
+                registry.addViewController("/main.html").setViewName("dashboard");
+            }
+
+            //注册拦截器
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                //静态资源已经由springBoot配置好了
+                registry.addInterceptor(new LoginHandelerInterceptor()).addPathPatterns("/**").
+                        excludePathPatterns("/","/index.html","/user/login");
             }
         };
         return webMvcConfigurer;
