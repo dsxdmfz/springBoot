@@ -38,7 +38,7 @@ public class MyConfig implements WebMvcConfigurer {
             public void addInterceptors(InterceptorRegistry registry) {
                 //静态资源映射已经由springBoot配置好了
                 registry.addInterceptor(new LoginHandelerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns("/","/index.html","/user/login");
+                        .excludePathPatterns("/","/index.html","/user/login","/webjars/**","/asserts/**");
             }
         };
         return webMvcConfigurer;
