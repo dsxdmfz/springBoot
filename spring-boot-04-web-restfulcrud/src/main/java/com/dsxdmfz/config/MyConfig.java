@@ -37,6 +37,9 @@ public class MyConfig implements WebMvcConfigurer {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 //静态资源映射已经由springBoot配置好了
+                //由于拦截器拦截了所有的接口，所以页面引用的 /webjars/**,/asserts/** 也被拦截，导致页面样式无法加载。
+                //此时应该也要排除 /webjars/**,/asserts/** 的拦截
+                //由于浏览器缓存的原因，还是要做排除静态资源拦截
                 registry.addInterceptor(new LoginHandelerInterceptor()).addPathPatterns("/**")
                         .excludePathPatterns("/","/index.html","/user/login","/webjars/**","/asserts/**");
             }
