@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -36,10 +37,8 @@ public class MyConfig implements WebMvcConfigurer {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 //静态资源映射已经由springBoot配置好了
-                //由于拦截器拦截了所有的接口，所以页面引用的webjars 也被拦截，导致页面样式无法加载。
-                //此时应该也要排除 webjars 的拦截
                 registry.addInterceptor(new LoginHandelerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns("/","/index.html","/user/login","/webjars/**");
+                        .excludePathPatterns("/","/index.html","/user/login");
             }
         };
         return webMvcConfigurer;
