@@ -331,13 +331,18 @@
 								<td th:text="${#dates.format(emp.birth, 'yyyy-MM-dd HH:mm')}"></td>
 								<td>
 									<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
-									<button class="btn btn-sm btn-danger">删除</button>
+									<button th:attr="del_uri=@{/emp/}+${emp.id}" type="submit" class="btn btn-sm btn-danger deleteBtn">删除</button>
+
 								</td>
 							</tr>
 							</tbody>
 						</table>
 					</div>
 				</main>
+				<form id="deleteEmpForm" method="post">
+					<input type="hidden" name="_method" value="delete"/>
+
+				</form>
 			</div>
 		</div>
 
@@ -352,6 +357,14 @@
 		<script type="text/javascript" src="asserts/js/feather.min.js"></script>
 		<script>
 			feather.replace()
+		</script>
+
+		<script>
+			$(".deleteBtn").click(function () {
+			    //删除当前员工
+				$("#deleteEmpForm").attr("action",$(this).attr("del_uri")).submit();
+				return false;
+            });
 		</script>
 
 		<!-- Graphs -->
