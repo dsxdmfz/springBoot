@@ -1,12 +1,12 @@
 package com.dsxdmfz.config;
 
-import com.dsxdmfz.component.LoginHandelerInterceptor;
 import com.dsxdmfz.component.MyLocalResolver;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -14,6 +14,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //但是，springboot2.0使用的spring5，Springboot2.0中WebMvcConfigurerAdapter过时，所以实现 WebMvcConfigurer接口来代替
 @Configuration
 public class MyConfig implements WebMvcConfigurer {
+
+    //定制嵌入式的servlet容器相关的规则
+    //1.x 的EmbeddedServletContainerCustomizer 已经不存，2.x  使用WebServerFactoryCustomizer
+    //在WebServerFactoryCustomizer接口中使用ConfigurableWebServerFactory对象实现对customize()方法的转换，从而实现对嵌入式servlet容器的配置
+    @Bean
+    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> WebServerFactoryCustomizer(){
+        return new WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>(){
+            @Override
+            public void customize(ConfigurableServletWebServerFactory factory) {
+                factory.setPort(8090);
+            }
+        };
+    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
