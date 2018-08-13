@@ -15,18 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MyConfig implements WebMvcConfigurer {
 
-    //定制嵌入式的servlet容器相关的规则
-    //1.x 的EmbeddedServletContainerCustomizer 已经不存，2.x  使用WebServerFactoryCustomizer
-    //在WebServerFactoryCustomizer接口中使用ConfigurableWebServerFactory对象实现对customize()方法的转换，从而实现对嵌入式servlet容器的配置
-    @Bean
-    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> WebServerFactoryCustomizer(){
-        return new WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>(){
-            @Override
-            public void customize(ConfigurableServletWebServerFactory factory) {
-                factory.setPort(8090);
-            }
-        };
-    }
+
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
