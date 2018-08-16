@@ -1,6 +1,13 @@
+server:
+  port: 8088
+
 spring:
   datasource:
     username: root
     url: jdbc:mysql://192.168.0.113:3306/jdbc?useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     password: 123456
+#    spring boot 2.x 要运行sql文件，需要配置
+    initialization-mode: always
+    schema:
+     - classpath:department.sql
