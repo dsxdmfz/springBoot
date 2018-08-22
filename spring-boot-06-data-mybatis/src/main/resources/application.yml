@@ -28,9 +28,16 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+mybatis:
+  # 指定全局配置文件位置
+  config-location: classpath:mybatis/mybatis-config.xml
+  # 指定sql文件映射位置
+  mapper-locations: classpath:mybatis/mapper/*.xml
 
 #    spring boot 2.x 要运行sql文件，需要配置 initialization-mode: always
 #    initialization-mode: always
 #    schema:
 #     - classpath:sql/department.sql
 #     - classpath:sql/employee.sql
+
+
