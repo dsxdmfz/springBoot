@@ -1,0 +1,15 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://192.168.0.113:3306/jpa?userSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    password: 123456
+  jpa:
+    hibernate:
+#    更新或者创建数据表结构
+      ddl-auto: update
+#      控制台显示sql
+    show-sql: true
+
