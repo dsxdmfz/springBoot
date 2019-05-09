@@ -25,14 +25,17 @@ public class EmployeeService {
      *  cacheManage：指定缓存管理器；或者cacheResolver指定获取解析器
      *  condition：指定符合条件的情况下才缓存；
      *      condition="#rid>0"
+     *      condition = "#a0>1" 第一个参数值>1的时候才进行缓存
      *  unless：否定缓存；当unless指定的条件为true，方法的返回值就不会被缓存；可以获取到结果进行判断
      *      unless="#result==null"
-     *  sync:是否使用异步模式
+     *      unless = "#a0==2" 如果第一个参数值是2，结果不缓存
+     *  sync:是否使用异步模式，异步情况下不支持unless
      *
      * @param id
      * @return
      */
-    @Cacheable(cacheNames = "emp")
+//    @Cacheable(cacheNames = "emp", key = "#root.methodName+'['+#id+']'")
+    @Cacheable(cacheNames = "emp", keyGenerator = "myKeyGenerator",condition = "#a0>1",unless = "#a0==2")
     public Employee getEmployee(Integer id){
         System.out.println("查询"+id+"号员工");
         Employee employee = employeeMapper.getEmployee(id);
