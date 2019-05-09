@@ -12,7 +12,7 @@ public interface EmployeeMapper {
     @Insert("INSERT INTO employee(lastName,email,gender,d_id) VALUES(#lastName,#email,#gender,#dId)")
     void saveEmployee(Employee employee);
 
-    @Update("UPDATE employee SET lastName=#{lastName},email=#{email},gender=#{gender},d_id=#{dId}")
+    @Update("UPDATE employee SET lastName=#{lastName},email=#{email},gender=#{gender},d_id=#{dId} WHERE id=#{id}")
     void updateEmployee(Employee employee);
 
     @Delete("DELETE FROM employee WHERE id=#{id}")

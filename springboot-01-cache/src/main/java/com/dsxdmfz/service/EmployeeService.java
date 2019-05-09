@@ -3,6 +3,7 @@ package com.dsxdmfz.service;
 import com.dsxdmfz.bean.Employee;
 import com.dsxdmfz.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -35,10 +36,32 @@ public class EmployeeService {
      * @return
      */
 //    @Cacheable(cacheNames = "emp", key = "#root.methodName+'['+#id+']'")
-    @Cacheable(cacheNames = "emp", keyGenerator = "myKeyGenerator",condition = "#a0>1",unless = "#a0==2")
+//    @Cacheable(cacheNames = "emp", keyGenerator = "myKeyGenerator",condition = "#a0>1",unless = "#a0==2")
+    @Cacheable(cacheNames = "emp")
     public Employee getEmployee(Integer id){
         System.out.println("查询"+id+"号员工");
         Employee employee = employeeMapper.getEmployee(id);
+        return employee;
+    }
+
+    /**
+     * @CachePut:既调用方法，又更新缓存数据；同步更新缓存
+     * 修改了数据库的某个数据，同时更新缓存
+     * 运行时机：
+     *     1、先调用目标方法
+     *     2、将目标方法的结果缓存起来
+     *
+     *  更新的时候同步缓存，必须指定同一个缓存的key
+     *  key = "#employee.id"  和  "#result.id"  都是Employee的id，既查询时使用的key
+     *
+     *
+     * @param employee
+     * @return
+     */
+    @CachePut(value = "emp",key = "#result.id")
+    public Employee updataEmployee(Employee employee) {
+        System.out.println("updata:"+employee);
+       employeeMapper.updateEmployee(employee);
         return employee;
     }
 

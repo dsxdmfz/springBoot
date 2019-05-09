@@ -19,4 +19,10 @@ public class EmployeeController {
         return employee;
     }
 
+    @GetMapping("/emp")
+    public Employee updata(Employee employee){
+        Employee emp = employeeService.updataEmployee(employee);
+        return emp;
+    }
+
 }
