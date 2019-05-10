@@ -17,6 +17,14 @@ import org.springframework.cache.annotation.EnableCaching;
  *      步骤：
  *          1、开启基于注解的缓存 @EnableCaching
  *          2、标注缓存注解即可
+ *          	@Cacheable
+ *          	@CachePut
+ *          	@CacheEvict
+ *  默认使用的是ConcurrentMapCacheManager==ConcurrentMapCache;将数据保存在 ConcurrentMap<String, Cache>
+ *  开发中使用缓存中间件：Redis、memcached、ehcache
+ *  三、整合redis作为缓存
+ *  Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。
+ *  1、安装Redis：使用docker
  *
  */
 
