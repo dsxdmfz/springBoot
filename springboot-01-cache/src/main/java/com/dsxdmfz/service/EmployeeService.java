@@ -3,10 +3,11 @@ package com.dsxdmfz.service;
 import com.dsxdmfz.bean.Employee;
 import com.dsxdmfz.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 
+
+@CacheConfig(cacheNames = "emp")
 @Service
 public class EmployeeService {
 
@@ -58,10 +59,46 @@ public class EmployeeService {
      * @param employee
      * @return
      */
-    @CachePut(value = "emp",key = "#result.id")
+    @CachePut(/*value = "emp",*/key = "#result.id")
     public Employee updataEmployee(Employee employee) {
         System.out.println("updata:"+employee);
        employeeMapper.updateEmployee(employee);
+        return employee;
+    }
+
+    /**
+     *  @CacheEvict:缓存清楚
+     *  key:指定要清楚的数据
+     *  allEntries = true:指定清楚这个缓存中所有的数据
+     *  beforeInvocation = false：缓存的清楚是否在方法之前执行
+     *      默认代表缓存清楚操作是在方法执行之后执行；如果出现异常缓存不会清楚
+     *  beforeInvocation = true: 代表清楚缓存操作是在方法运行之前执行，无论方法是否出现异常，缓存都清除
+     *
+     * @param id
+     */
+    @CacheEvict(/*value = "emp",*//*key = "#id",*//*beforeInvocation = true,*/allEntries = true)
+    public void deleteEmp(Integer id){
+        System.out.println("deleteEmp:"+id);
+//        employeeMapper.deleteEmployee(id);
+    }
+
+    /**
+     * @Caching:定义复杂的缓存规则
+     * @param lastName
+     * @return
+     */
+    @Caching(
+            cacheable = {
+                    @Cacheable(key = "#lastName")
+            },
+            put = {
+                    @CachePut(key = "#result.id"),
+                    @CachePut(key = "#result.email")
+            }
+    )
+    public Employee getEmpByLastName(String lastName){
+        System.out.println("查询号员工"+lastName);
+        Employee employee = employeeMapper.getEmpByLastName(lastName);
         return employee;
     }
 
