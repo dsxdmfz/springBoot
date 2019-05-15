@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 
 
-@CacheConfig(cacheNames = "emp")
+@CacheConfig(cacheNames = "emp",cacheManager = "empCacheManager")
 @Service
 public class EmployeeService {
 
