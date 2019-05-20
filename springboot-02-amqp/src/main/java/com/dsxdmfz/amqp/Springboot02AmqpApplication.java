@@ -1,5 +1,6 @@
 package com.dsxdmfz.amqp;
 
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,7 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 3、RabbitProperties 封装了RabbitMQ的配置
  * 4、RabbitTemplate 给RabbitMQ发送和接收消息
  * 5、AmqpAdmin RabbitMQ系统管理功能组件
+ *      AmqpAdmin：创建和删除 Queue Exchange Binding
+ * 6、@RabbitListener + @EnableRabbit 监听消息队列
  */
+@EnableRabbit//开启基于注解的RabbitMq模式
 @SpringBootApplication
 public class Springboot02AmqpApplication {
 
