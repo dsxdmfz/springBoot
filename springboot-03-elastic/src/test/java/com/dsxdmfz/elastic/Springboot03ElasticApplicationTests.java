@@ -1,6 +1,8 @@
 package com.dsxdmfz.elastic;
 
+import com.dsxdmfz.elastic.Repository.BookRepository;
 import com.dsxdmfz.elastic.bean.Article;
+import com.dsxdmfz.elastic.bean.Book;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,6 +22,24 @@ public class Springboot03ElasticApplicationTests {
 
     @Autowired
     JestClient jestClient;
+
+    @Autowired
+    BookRepository bookRepository;
+
+    @Test
+    public void test(){
+//        Book book = new Book();
+//        book.setId(1);
+//        book.setBookName("雪中悍刀行");
+//        book.setAuthor("烽火戏诸侯");
+//        bookRepository.index(book);
+
+        List<Book> list = bookRepository.findByBookNameLike("雪");
+        for (Book book: list
+             ) {
+            System.out.println(book);
+        }
+    }
 
     @Test
     public void contextLoads() {
