@@ -30,6 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         // /login来到登陆页面
         // 重定向到/login?error表示登陆失败
         //更多详细规定
+
+        //开启自动配置的注销功能
+        http.logout().logoutSuccessUrl("/");//注销成功以后来到首页
+        //1、访问/logout 表示用户注销，情况session
+        //2、注销成功会返回 /logi？logou页面
     }
 
     /**
