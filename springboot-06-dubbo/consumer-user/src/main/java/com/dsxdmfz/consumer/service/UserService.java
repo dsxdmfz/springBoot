@@ -16,7 +16,7 @@ public class UserService {
 
     public void hello(){
         String ticket = ticketService.getTicket();
-        System.out.println("购买了"+ticket);
+        System.out.println("买到了"+ticket);
     }
 
 }
